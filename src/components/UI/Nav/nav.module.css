@@ -1,0 +1,9 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+}
+
+.nav-menu .btn {
+  max-height: 50px;
+}

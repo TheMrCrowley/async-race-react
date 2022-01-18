@@ -1,0 +1,13 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: stretch;
+  flex-direction: column;
+  background-color: #202026;
+}
+
+.top-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}

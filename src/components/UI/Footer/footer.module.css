@@ -1,0 +1,40 @@
+.footer {
+  flex: 1 1 auto;
+  max-height: 90px;
+  background-color: #202026;
+  display: flex;
+  align-items: center;
+  transition: 0.5s all ease-in-out;
+}
+
+.footer-content {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gh-link {
+  display: block;
+  width: 10%;
+}
+
+.rs-link {
+  display: block;
+  width: 20%;
+}
+
+.footer-img {
+  max-width: 100%;
+  filter: invert(1);
+  transition: 0.2s filter ease-in-out;
+}
+
+.footer-img:hover {
+  filter: invert(83%) sepia(64%) saturate(3075%) brightness(97%) contrast(105%);
+}
+
+.created {
+  color: white;
+  font-size: 24px;
+}
