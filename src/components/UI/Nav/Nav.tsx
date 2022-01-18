@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../Button/Button';
 import { NavClasses, NavButtonsTextContent } from './enum';
 import navClasses from './nav.module.css';
+import GeneralClassNames from '../../../enum';
 
-function Nav() {
+const Nav: FC = () => {
   const navigate = useNavigate();
   return (
     <nav className={navClasses[NavClasses.NAV]}>
-      <Button
+      <button
+        className={GeneralClassNames.BTN}
+        type="button"
         onClick={() => navigate('/garage', { replace: true })}
-        textContent={NavButtonsTextContent.GARAGE}
-      />
-      <Button
+      >
+        {NavButtonsTextContent.GARAGE}
+      </button>
+      <button
+        className={GeneralClassNames.BTN}
+        type="button"
         onClick={() => navigate('/winners', { replace: true })}
-        textContent={NavButtonsTextContent.WINNERS}
-      />
+      >
+        {NavButtonsTextContent.WINNERS}
+      </button>
     </nav>
   );
-}
+};
 
 export default Nav;

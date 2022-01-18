@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Button from './components/UI/Button/Button';
 import Layout from './components/UI/Layout/Layout';
-import './app.module.css';
+import './app.css';
+import CarLine from './components/UI/CarLine/CarLine';
 
 function App() {
   return (
@@ -11,15 +11,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route
             path="garage"
-            element={
-              <Button onClick={() => console.log(1)} textContent="Garage" />
-            }
-          />
-          <Route
-            path="winners"
-            element={
-              <Button onClick={() => console.log(2)} textContent="Winners" />
-            }
+            element={<CarLine data={{ name: 'BMW', color: 'teal' }} />}
           />
         </Route>
       </Routes>

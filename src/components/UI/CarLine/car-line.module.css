@@ -1,0 +1,73 @@
+.car-line {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 1rem;
+}
+.car-line::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #fecb00;
+}
+.car-line-header {
+    display: flex;
+    align-items: center;
+    width: 30%;
+    margin-bottom: 1rem;
+}
+
+.car-line-header .select-car {
+    margin-right: 1rem;
+    font-size: 18px;
+}
+
+.car-line-header .remove-car {
+    margin-right: 1rem;
+    font-size: 18px;
+}
+
+.car-name {
+    font-size: 24px;
+    color: #fff;
+}
+
+.car-line-body {
+    display: flex;
+    justify-content: space-between;
+    min-height: 100px;
+}
+
+.car-line-body-btn {
+    align-self: flex-start;
+    max-height: 50%;
+    margin-right: 1rem;
+}
+
+.start {
+    display: flex;
+}
+
+.car-svg {
+    width: 150px;
+    align-self: flex-end;
+    animation-duration: 1s;
+    animation-name: drive;
+}
+
+.finish-svg {
+    width: 100px;
+    transform: translate(-200px, -1rem);
+}
+
+.gray {
+    filter: grayscale(1);
+}
+
+svg {
+    max-width: 100%;
+    height: auto;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Outlet } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 
 import Header from '../Header/Header';
@@ -11,7 +12,9 @@ function Layout() {
     <div className={layoutClasses[LayoutClassNames.WRAPPER]}>
       <div className={layoutClasses[LayoutClassNames.TOP_CONTENT]}>
         <Header />
-        <Main />
+        <Main>
+          <Outlet />
+        </Main>
       </div>
       <Footer />
     </div>

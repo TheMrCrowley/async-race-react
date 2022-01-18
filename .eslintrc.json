@@ -38,6 +38,7 @@
         "prettier/prettier": [
             "error"
         ],
+        "react/require-default-props": [0],
         "react/jsx-filename-extension": [
             1,
             {
@@ -47,15 +48,15 @@
                 ]
             }
         ],
-        // "react/function-component-definition": [2,
-        //     {
-        //         "namedComponents": ["function-declaration", "function-expression","arrow-function"]
-        //         // "unnamedComponents": "function-expression" | "arrow-function" | Array<"function-expression" | "arrow-function">
-        //     }
-        // ],
-        "indent": [
-            "error",
-            2
+        "react/function-component-definition": [
+            2,
+            {
+                "namedComponents": [
+                    "function-declaration",
+                    "function-expression",
+                    "arrow-function"
+                ]
+            }
         ],
         "quotes": [
             "error",

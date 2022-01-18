@@ -26,6 +26,7 @@
 
 .footer-img {
   max-width: 100%;
+  height: auto;
   filter: invert(1);
   transition: 0.2s filter ease-in-out;
 }

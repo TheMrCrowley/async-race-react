@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Nav from '../Nav/Nav';
 import { HeaderClasses, HeaderTextContent } from './enum';
 import headerClasses from './header.module.css';
 
-function Header() {
+const Header: FC = () => {
   return (
     <header className={headerClasses[HeaderClasses.HEADER]}>
       <Nav />
@@ -12,6 +12,6 @@ function Header() {
       </h1>
     </header>
   );
-}
+};
 
 export default Header;
