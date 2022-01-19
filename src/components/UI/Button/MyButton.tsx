@@ -14,12 +14,15 @@ export const StyledButton = styled.button<ButtonProps>`
     border-color: transparent;
     color: #202026;
   }
+  filter: grayscale(${props => (props.gray ? 1 : 0)});
 `;
+
 interface ButtonProps {
   children: React.ReactNode | React.ReactElement;
   onClick: () => void;
   disabled?: boolean;
   fontSize?: string;
+  gray?: boolean;
 }
 
 const MyButton: FC<ButtonProps> = ({
@@ -27,10 +30,12 @@ const MyButton: FC<ButtonProps> = ({
   children,
   onClick,
   fontSize,
+  gray,
 }) => {
   return (
     <StyledButton
-      disabled={disabled || false}
+      gray={gray}
+      disabled={disabled}
       type="button"
       onClick={onClick}
       fontSize={fontSize}

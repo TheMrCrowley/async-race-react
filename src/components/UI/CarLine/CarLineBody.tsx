@@ -4,7 +4,7 @@ import { CarLineButtonsText } from './enum';
 
 import { ReactComponent as CarSvg } from './car.svg';
 import { ReactComponent as FinishSvg } from './finish.svg';
-import MyButton from '../Button/MyButton';
+import { StyledButton } from '../Button/MyButton';
 
 interface CarLineBodyProps {
   color: string;
@@ -42,12 +42,18 @@ const StyledFlagWrapper = styled.div`
   transform: translate(-200px, -1rem);
 `;
 
+const CarEngineButton = styled(StyledButton)`
+  align-self: flex-start;
+  max-height: 50%;
+  margin-right: 1rem;
+`;
+
 const CarLineBody: FC<CarLineBodyProps> = ({ color }) => {
   const [requestId, setRequestId] = useState<number>(0);
   const [drive, setDrive] = useState<boolean>(false);
   const carImage = useRef<HTMLDivElement>();
   const flagImage = useRef<HTMLDivElement>();
-  console.log(carImage);
+
   const stopAnimation = () => {
     window.cancelAnimationFrame(requestId);
   };
@@ -82,16 +88,18 @@ const CarLineBody: FC<CarLineBodyProps> = ({ color }) => {
   return (
     <StyledCarLineBody>
       <StyledStartWrapper>
-        <MyButton
+        <CarEngineButton
+          gray={drive}
           onClick={() => {
             setDrive(true);
             animation(5000, 144);
           }}
-          disabled={false}
+          disabled={drive}
         >
           {CarLineButtonsText.START}
-        </MyButton>
-        <MyButton
+        </CarEngineButton>
+        <CarEngineButton
+          gray={!drive}
           disabled={!drive}
           onClick={() => {
             setDrive(false);
@@ -100,7 +108,7 @@ const CarLineBody: FC<CarLineBodyProps> = ({ color }) => {
           }}
         >
           {CarLineButtonsText.STOP}
-        </MyButton>
+        </CarEngineButton>
         <StyledCarWrapper
           ref={carImage as RefObject<HTMLDivElement>}
           color={color}
@@ -108,7 +116,7 @@ const CarLineBody: FC<CarLineBodyProps> = ({ color }) => {
           <CarSvg />
         </StyledCarWrapper>
       </StyledStartWrapper>
-      <StyledFlagWrapper>
+      <StyledFlagWrapper ref={flagImage as RefObject<HTMLDivElement>}>
         <FinishSvg />
       </StyledFlagWrapper>
     </StyledCarLineBody>

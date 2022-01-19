@@ -10,12 +10,13 @@ interface CarLineHeaderProps {
 const StyledCarLineHeader = styled.div`
   display: flex;
   align-items: center;
-  width: 30%;
+  width: 50%;
   margin-bottom: 1rem;
 `;
 const StyledCarName = styled.div`
   font-size: 24px;
   color: #fff;
+  margin-right: 1rem;
 `;
 const CarLineHeaderButton = styled(StyledButton)`
   margin-right: 1rem;
@@ -23,12 +24,13 @@ const CarLineHeaderButton = styled(StyledButton)`
 `;
 
 const CarLineHeader: FC<CarLineHeaderProps> = ({ name }) => {
+  console.log('CarLineHeader render');
   return (
     <StyledCarLineHeader>
-      <CarLineHeaderButton onClick={() => console.log(this)}>
+      <CarLineHeaderButton onClick={() => console.log('Click on Select')}>
         {CarLineButtonsText.SELECT}
       </CarLineHeaderButton>
-      <CarLineHeaderButton onClick={() => console.log(this)}>
+      <CarLineHeaderButton onClick={() => console.log('Click on Remove')}>
         {CarLineButtonsText.REMOVE}
       </CarLineHeaderButton>
       <StyledCarName>{name}</StyledCarName>

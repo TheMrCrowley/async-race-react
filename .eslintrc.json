@@ -34,9 +34,9 @@
         "prettier"
     ],
     "rules": {
-        "prettier/prettier": [
-            "error"
-        ],
+//        "prettier/prettier": [
+//            "error"
+//        ],
         "react/require-default-props": [0],
         "react/jsx-filename-extension": [
             1,

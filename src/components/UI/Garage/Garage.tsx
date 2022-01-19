@@ -1,12 +1,12 @@
 import React from 'react';
-import GarageClassNames from './enum';
-import garageClasses from './garage.module.css';
+import { StyledGarageSection } from './style';
+import GarageHeader from './GarageHeader';
 
 const Garage = () => {
   return (
-    <section>
-      <div />
-    </section>
+    <StyledGarageSection>
+      <GarageHeader />
+    </StyledGarageSection>
   );
 };
 

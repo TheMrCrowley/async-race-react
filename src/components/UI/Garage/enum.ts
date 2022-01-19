@@ -1,19 +1,13 @@
-enum GarageClassNames {
-  SECTION = 'garage',
-  CONTROL_WRAPPER = 'controls-wrapper',
-  PAGE_CONTROLS = 'page-controls',
-  FORM_WRAPPER = 'form-wrapper',
-  CONTROL_BUTTONS_WRAPPER = 'control-buttons-wrapper',
-  CAR_LINES_WRAPPER = 'car-lines',
-  FORM = 'garage-form',
-  CREATE_FORM = 'create-form',
-  CHANGE_FORM = 'change-form',
-  NAME_INPUT = 'garage-input-text',
-  COLOR_INPUT = 'garage-input-color',
-  BTN = 'btn',
-  FORM_BUTTON = 'form-button',
-  WINNER_POPUP = 'winner-popup',
-  WINNER_NAME = 'winner-name',
+enum GarageTextContent {
+  GARAGE_TITLE = 'Garage',
+  PAGE_TITLE = 'Page',
+  CREATE_BUTTON = 'Create',
+  CHANGE_BUTTON = 'Change',
+  PAGE_PREV = 'Prev',
+  PAGE_NEXT = 'Next',
+  RACE_BUTTON = 'Race',
+  RESET_BUTTON = 'Reset',
+  GENERATE_BUTTON = 'Generate',
 }
 
-export default GarageClassNames;
+export default GarageTextContent;
