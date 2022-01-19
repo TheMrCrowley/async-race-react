@@ -1,15 +1,19 @@
 import React, { FC } from 'react';
-import { Outlet } from 'react-router-dom';
-import MainClassNames from './enum';
-import mainClasses from './main.module.css';
+import styled from 'styled-components';
+import Container from '../Container/Container';
 
-const Main: FC = () => {
+const StyledMain = styled.main`
+  padding: 1rem 0;
+`;
+
+type MainProps = {
+  children: React.ReactElement | React.ReactNode;
+};
+const Main: FC<MainProps> = ({ children }) => {
   return (
-    <div className={mainClasses[MainClassNames.MAIN]}>
-      <div className={MainClassNames.CONTAINER}>
-        <Outlet />
-      </div>
-    </div>
+    <StyledMain>
+      <Container>{children}</Container>
+    </StyledMain>
   );
 };
 

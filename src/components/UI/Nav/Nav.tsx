@@ -1,28 +1,26 @@
 import React, { FC } from 'react';
+import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { NavClasses, NavButtonsTextContent } from './enum';
-import navClasses from './nav.module.css';
-import GeneralClassNames from '../../../enum';
+import { NavButtonsTextContent } from './enum';
+import MyButton from '../Button/MyButton';
+
+const StyledNav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+`;
 
 const Nav: FC = () => {
   const navigate = useNavigate();
   return (
-    <nav className={navClasses[NavClasses.NAV]}>
-      <button
-        className={GeneralClassNames.BTN}
-        type="button"
-        onClick={() => navigate('/garage', { replace: true })}
-      >
+    <StyledNav>
+      <MyButton onClick={() => navigate('/garage', { replace: true })}>
         {NavButtonsTextContent.GARAGE}
-      </button>
-      <button
-        className={GeneralClassNames.BTN}
-        type="button"
-        onClick={() => navigate('/winners', { replace: true })}
-      >
+      </MyButton>
+      <MyButton onClick={() => navigate('/winners', { replace: true })}>
         {NavButtonsTextContent.WINNERS}
-      </button>
-    </nav>
+      </MyButton>
+    </StyledNav>
   );
 };
 

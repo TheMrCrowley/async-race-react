@@ -1,16 +1,35 @@
 import React, { FC } from 'react';
+import styled from 'styled-components';
 import Nav from '../Nav/Nav';
-import { HeaderClasses, HeaderTextContent } from './enum';
-import headerClasses from './header.module.css';
+import { HeaderTextContent } from './enum';
+
+import Title from './Title';
+
+const StyledHeader = styled.header`
+  display: flex;
+  position: relative;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 1rem 0;
+  min-height: 100px;
+  width: 100%;
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    display: block;
+    height: 4px;
+    background-color: #fecb00;
+    width: 100%;
+  }
+`;
 
 const Header: FC = () => {
   return (
-    <header className={headerClasses[HeaderClasses.HEADER]}>
+    <StyledHeader>
       <Nav />
-      <h1 className={headerClasses[HeaderClasses.HEADER_TITLE]}>
-        {HeaderTextContent.TITLE}
-      </h1>
-    </header>
+      <Title>{HeaderTextContent.TITLE}</Title>
+    </StyledHeader>
   );
 };
 

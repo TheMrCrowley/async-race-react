@@ -1,23 +1,36 @@
 import React from 'react';
+import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
-import Footer from '../Footer/Footer';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
-import LayoutClassNames from './enum';
-import layoutClasses from './layout.module.css';
+import Footer from '../Footer/Footer';
+
+const StyledWrapper = styled.div`
+  min-height: 100vh;
+  display: flex;
+  justify-content: stretch;
+  flex-direction: column;
+  background-color: #202026;
+`;
+
+const StyledMainContent = styled.div`
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+`;
 
 function Layout() {
   return (
-    <div className={layoutClasses[LayoutClassNames.WRAPPER]}>
-      <div className={layoutClasses[LayoutClassNames.TOP_CONTENT]}>
+    <StyledWrapper>
+      <StyledMainContent>
         <Header />
         <Main>
           <Outlet />
         </Main>
-      </div>
+      </StyledMainContent>
       <Footer />
-    </div>
+    </StyledWrapper>
   );
 }
 

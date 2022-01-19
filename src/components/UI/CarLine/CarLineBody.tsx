@@ -1,22 +1,53 @@
-import React, { FC, LegacyRef, useRef, useState } from 'react';
-import carLineClasses from './car-line.module.css';
-import { CarLineButtonsText, CarLineClassNames } from './enum';
+import React, { FC, LegacyRef, RefObject, useRef, useState } from 'react';
+import styled from 'styled-components';
+import { CarLineButtonsText } from './enum';
 
 import { ReactComponent as CarSvg } from './car.svg';
 import { ReactComponent as FinishSvg } from './finish.svg';
-import GeneralClassNames from '../../../enum';
 import MyButton from '../Button/MyButton';
 
 interface CarLineBodyProps {
   color: string;
 }
 
+const StyledCarLineBody = styled.div`
+  display: flex;
+  justify-content: space-between;
+  min-height: 100px;
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+`;
+
+const StyledStartWrapper = styled.div`
+  display: flex;
+`;
+
+type CarWrapperProps = {
+  ref?: LegacyRef<HTMLDivElement>;
+  color: string;
+};
+
+const StyledCarWrapper = styled.div<CarWrapperProps>`
+  width: 150px;
+  align-self: flex-end;
+  animation-duration: 1s;
+  animation-name: drive;
+  fill: ${props => props.color || '#fecb00'};
+`;
+
+const StyledFlagWrapper = styled.div`
+  width: 100px;
+  transform: translate(-200px, -1rem);
+`;
+
 const CarLineBody: FC<CarLineBodyProps> = ({ color }) => {
   const [requestId, setRequestId] = useState<number>(0);
   const [drive, setDrive] = useState<boolean>(false);
   const carImage = useRef<HTMLDivElement>();
   const flagImage = useRef<HTMLDivElement>();
-
+  console.log(carImage);
   const stopAnimation = () => {
     window.cancelAnimationFrame(requestId);
   };
@@ -48,39 +79,14 @@ const CarLineBody: FC<CarLineBodyProps> = ({ color }) => {
     window.requestAnimationFrame(() => tick(0, endPoint, step));
   };
 
-  const activeButton = (): string => {
-    return drive
-      ? [
-          GeneralClassNames.BTN,
-          GeneralClassNames.BTN_ACTIVE,
-          carLineClasses[CarLineClassNames.CAR_LINE_BODY_BTN],
-        ].join(' ')
-      : [
-          GeneralClassNames.BTN,
-          carLineClasses[CarLineClassNames.CAR_LINE_BODY_BTN],
-        ].join(' ');
-  };
-  const removeGray = (): string => {
-    return drive
-      ? [
-          GeneralClassNames.BTN,
-          carLineClasses[CarLineClassNames.CAR_LINE_BODY_BTN],
-        ].join(' ')
-      : [
-          GeneralClassNames.BTN,
-          carLineClasses[CarLineClassNames.CAR_LINE_BODY_BTN],
-          carLineClasses[CarLineClassNames.GRAY],
-        ].join(' ');
-  };
   return (
-    <div className={carLineClasses[CarLineClassNames.CAR_LINE_BODY]}>
-      <div className={carLineClasses[CarLineClassNames.START_WRAPPER]}>
+    <StyledCarLineBody>
+      <StyledStartWrapper>
         <MyButton
           onClick={() => {
             setDrive(true);
             animation(5000, 144);
           }}
-          className={activeButton()}
           disabled={false}
         >
           {CarLineButtonsText.START}
@@ -92,25 +98,20 @@ const CarLineBody: FC<CarLineBodyProps> = ({ color }) => {
             stopAnimation();
             resetCarPosition();
           }}
-          className={removeGray()}
         >
           {CarLineButtonsText.STOP}
         </MyButton>
-        <div
-          ref={carImage as LegacyRef<HTMLDivElement>}
-          className={carLineClasses[CarLineClassNames.CAR_SVG_WRAPPER]}
-          style={{ fill: color }}
+        <StyledCarWrapper
+          ref={carImage as RefObject<HTMLDivElement>}
+          color={color}
         >
           <CarSvg />
-        </div>
-      </div>
-      <div
-        ref={flagImage as LegacyRef<HTMLDivElement>}
-        className={carLineClasses[CarLineClassNames.FINISH_SVG_WRAPPER]}
-      >
+        </StyledCarWrapper>
+      </StyledStartWrapper>
+      <StyledFlagWrapper>
         <FinishSvg />
-      </div>
-    </div>
+      </StyledFlagWrapper>
+    </StyledCarLineBody>
   );
 };
 

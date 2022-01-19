@@ -1,27 +1,42 @@
 import React, { FC } from 'react';
+import styled from 'styled-components';
 
+export const StyledButton = styled.button<ButtonProps>`
+  padding: 0.5rem 1rem;
+  font-size: ${props => props.fontSize || '1.5rem'};
+  color: #fff;
+  cursor: pointer;
+  border: 2px solid #fecb00;
+  border-radius: 1.5rem;
+  transition: 0.5s background-color, border-color, color ease-in-out;
+  &:hover {
+    background-color: #fecb00;
+    border-color: transparent;
+    color: #202026;
+  }
+`;
 interface ButtonProps {
   children: React.ReactNode | React.ReactElement;
-  className: string;
   onClick: () => void;
-  disabled: boolean;
+  disabled?: boolean;
+  fontSize?: string;
 }
 
 const MyButton: FC<ButtonProps> = ({
   disabled,
   children,
-  className,
   onClick,
+  fontSize,
 }) => {
   return (
-    <button
-      disabled={disabled}
+    <StyledButton
+      disabled={disabled || false}
       type="button"
-      className={className}
       onClick={onClick}
+      fontSize={fontSize}
     >
       {children}
-    </button>
+    </StyledButton>
   );
 };
 

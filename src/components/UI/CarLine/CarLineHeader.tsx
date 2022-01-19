@@ -1,37 +1,38 @@
 import React, { FC } from 'react';
-import carLineClasses from './car-line.module.css';
-import { CarLineButtonsText, CarLineClassNames } from './enum';
-import GeneralClassNames from '../../../enum';
+import styled from 'styled-components';
+import { CarLineButtonsText } from './enum';
+import { StyledButton } from '../Button/MyButton';
 
 interface CarLineHeaderProps {
   name: string;
 }
 
+const StyledCarLineHeader = styled.div`
+  display: flex;
+  align-items: center;
+  width: 30%;
+  margin-bottom: 1rem;
+`;
+const StyledCarName = styled.div`
+  font-size: 24px;
+  color: #fff;
+`;
+const CarLineHeaderButton = styled(StyledButton)`
+  margin-right: 1rem;
+  font-size: 18px;
+`;
+
 const CarLineHeader: FC<CarLineHeaderProps> = ({ name }) => {
   return (
-    <div className={carLineClasses[CarLineClassNames.CAR_LINE_HEADER]}>
-      <button
-        type="button"
-        onClick={() => console.log(this)}
-        className={[
-          GeneralClassNames.BTN,
-          carLineClasses[CarLineClassNames.SELECT_BTN],
-        ].join(' ')}
-      >
+    <StyledCarLineHeader>
+      <CarLineHeaderButton onClick={() => console.log(this)}>
         {CarLineButtonsText.SELECT}
-      </button>
-      <button
-        type="button"
-        onClick={() => console.log(this)}
-        className={[
-          GeneralClassNames.BTN,
-          carLineClasses[CarLineClassNames.SELECT_BTN],
-        ].join(' ')}
-      >
+      </CarLineHeaderButton>
+      <CarLineHeaderButton onClick={() => console.log(this)}>
         {CarLineButtonsText.REMOVE}
-      </button>
-      <div className={carLineClasses[CarLineClassNames.CAR_NAME]}>{name}</div>
-    </div>
+      </CarLineHeaderButton>
+      <StyledCarName>{name}</StyledCarName>
+    </StyledCarLineHeader>
   );
 };
 
