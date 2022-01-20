@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { StyledButton } from '../Button/MyButton';
+import { StyledButton } from '../UI/Button/MyButton';
 
 export const StyledGarageSection = styled.section`
   display: flex;
@@ -56,18 +56,6 @@ export const StyledForm = styled.form`
   justify-content: center;
   align-items: center;
   margin-bottom: 1rem;
-`;
-
-export const StyledInputText = styled.input`
-  max-width: 50%;
-  width: 100%;
-  margin-right: 2rem;
-  font-size: 24px;
-`;
-
-export const StyledInputColor = styled.input`
-  min-width: 2rem;
-  margin-right: 2rem;
 `;
 
 export const StyledFormButton = styled(StyledButton)`

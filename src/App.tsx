@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Layout from './components/UI/Layout/Layout';
+import Layout from './components/Layout/Layout';
 import MyButton from './components/UI/Button/MyButton';
-import Garage from './components/UI/Garage/Garage';
+import Garage from './components/Garage/Garage';
 
 function App() {
   return (

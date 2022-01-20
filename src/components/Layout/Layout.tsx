@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
 
-import Header from '../Header/Header';
-import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
+import Header from '../UI/Header/Header';
+import Main from '../UI/Main/Main';
+import Footer from '../UI/Footer/Footer';
 
 const StyledWrapper = styled.div`
   min-height: 100vh;

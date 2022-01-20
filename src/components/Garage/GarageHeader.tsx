@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 import * as Styled from './style';
 import GarageTextContent from './enum';
+import InputText from '../UI/Inputs/InputText';
+import InputColor from '../UI/Inputs/InputColor';
 
-const GarageHeader = () => {
+const GarageHeader: FC = () => {
   return (
     <Styled.StyledGarageHeader>
       <Styled.StyledTitleWrapper>
@@ -16,17 +18,10 @@ const GarageHeader = () => {
       <Styled.StyledControlsWrapper>
         <Styled.StyledFormWrapper>
           <Styled.StyledForm>
-            <Styled.StyledInputText type="text" />
-            <Styled.StyledInputColor type="color" />
+            <InputText />
+            <InputColor />
             <Styled.StyledFormButton onClick={() => console.log(1)}>
               {GarageTextContent.CREATE_BUTTON}
-            </Styled.StyledFormButton>
-          </Styled.StyledForm>
-          <Styled.StyledForm>
-            <Styled.StyledInputText type="text" />
-            <Styled.StyledInputColor type="color" />
-            <Styled.StyledFormButton onClick={() => console.log(1)}>
-              {GarageTextContent.CHANGE_BUTTON}
             </Styled.StyledFormButton>
           </Styled.StyledForm>
         </Styled.StyledFormWrapper>

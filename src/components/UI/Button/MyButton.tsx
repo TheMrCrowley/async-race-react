@@ -19,7 +19,7 @@ export const StyledButton = styled.button<ButtonProps>`
 
 interface ButtonProps {
   children: React.ReactNode | React.ReactElement;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent) => void;
   disabled?: boolean;
   fontSize?: string;
   gray?: boolean;

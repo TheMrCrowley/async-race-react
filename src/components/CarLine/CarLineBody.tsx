@@ -4,10 +4,12 @@ import { CarLineButtonsText } from './enum';
 
 import { ReactComponent as CarSvg } from './car.svg';
 import { ReactComponent as FinishSvg } from './finish.svg';
-import { StyledButton } from '../Button/MyButton';
+import { StyledButton } from '../UI/Button/MyButton';
+import FetchService from '../../API/FetchService';
 
 interface CarLineBodyProps {
   color: string;
+  id: number;
 }
 
 const StyledCarLineBody = styled.div`
@@ -48,7 +50,7 @@ const CarEngineButton = styled(StyledButton)`
   margin-right: 1rem;
 `;
 
-const CarLineBody: FC<CarLineBodyProps> = ({ color }) => {
+const CarLineBody: FC<CarLineBodyProps> = ({ color, id }) => {
   const [requestId, setRequestId] = useState<number>(0);
   const [drive, setDrive] = useState<boolean>(false);
   const carImage = useRef<HTMLDivElement>();
@@ -85,12 +87,18 @@ const CarLineBody: FC<CarLineBodyProps> = ({ color }) => {
     window.requestAnimationFrame(() => tick(0, endPoint, step));
   };
 
+  const handleStart = async () => {
+    const startResponse = await FetchService.startEngine(id);
+    console.log(startResponse);
+  };
+
   return (
     <StyledCarLineBody>
       <StyledStartWrapper>
         <CarEngineButton
           gray={drive}
           onClick={() => {
+            handleStart();
             setDrive(true);
             animation(5000, 144);
           }}
