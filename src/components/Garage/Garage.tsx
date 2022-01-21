@@ -1,46 +1,71 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { CarLinesWrapper, StyledGarageSection } from './style';
 import GarageHeader from './GarageHeader';
 import FetchService from '../../API/FetchService';
 import { CarData } from '../../API/types';
 import CarLine from '../CarLine/CarLine';
-import useFetching from '../../hooks/fetchDara';
-import Loader from '../UI/Loader/Loader';
+// import useFetching from '../../hooks/fetchDara';
+// import Loader from '../UI/Loader/Loader';
+import { Func } from '../CarLine/types';
 
-const Garage = () => {
-  console.log('Garage render');
+const Garage: FC = () => {
   const [cars, setCars] = useState<CarData[]>([]);
-  // const [updateActive, setUpdateActive] = useState<boolean>(false);
-  const [getCars, isCarsLoading] = useFetching(async () => {
-    const carsResponse = await FetchService.getCars();
-    setCars(carsResponse);
-  });
+  const [startHandlers, setStartHandlers] = useState<Func[]>([]);
+  const [stopHandlers, setStopHandlers] = useState<Func[]>([]);
+  // const [getCars, isCarsLoading] = useFetching(async () => {
+  //   const carsResponse = await FetchService.getCars();
+  //   setCars(carsResponse);
+  // });
+  console.log('Start', startHandlers);
+  console.log('Stop', stopHandlers);
 
   useEffect(() => {
-    getCars();
+    FetchService.getCars().then(data => setCars(data));
+    // getCars();
   }, []);
 
   const removeCar = async (id: number) => {
     await FetchService.removeCar(id);
-    getCars();
+    // getCars();
   };
 
-  // const changeCar = async () => {
-  //   setUpdateActive(true);
-  // };
+  const getStartHandlers = (fn: Func) => {
+    setStartHandlers(prev => [...prev, fn]);
+  };
+
+  const getStopHandlers = (fn: Func) => {
+    setStopHandlers(prev => [...prev, fn]);
+  };
 
   return (
     <StyledGarageSection>
       <GarageHeader />
-      {isCarsLoading ? (
+      <CarLinesWrapper>
+        {cars.map(car => (
+          <CarLine
+            getStartHandler={getStartHandlers}
+            getStopHandler={getStopHandlers}
+            remove={removeCar}
+            key={car.id}
+            data={car}
+          />
+        ))}
+      </CarLinesWrapper>
+      {/* {isCarsLoading ? (
         <Loader />
       ) : (
         <CarLinesWrapper>
           {cars.map(car => (
-            <CarLine remove={removeCar} key={car.id} data={car} />
+            <CarLine
+              getStartHandler={getStartHandlers}
+              getStopHandler={getStopHandlers}
+              remove={removeCar}
+              key={car.id}
+              data={car}
+            />
           ))}
         </CarLinesWrapper>
-      )}
+      )} */}
     </StyledGarageSection>
   );
 };

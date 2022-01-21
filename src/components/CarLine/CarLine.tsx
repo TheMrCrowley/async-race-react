@@ -1,19 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import FetchService from '../../API/FetchService';
 import CarLineBody from './CarLineBody';
 import CarLineHeader from './CarLineHeader';
-
-export interface CarLineData {
-  name: string;
-  color: string;
-  id: number;
-}
-
-interface CarLineProps {
-  data: CarLineData;
-  remove: (id: number) => Promise<void>;
-}
+import { CarLineProps, Func } from './types';
 
 const StyledCarLine = styled.div`
   display: flex;
@@ -31,9 +21,23 @@ const StyledCarLine = styled.div`
   }
 `;
 
-const CarLine: FC<CarLineProps> = ({ data, remove }) => {
+const CarLine: FC<CarLineProps> = ({
+  data,
+  remove,
+  getStartHandler,
+  getStopHandler,
+}) => {
   const [name, setName] = useState<string>(data.name);
   const [color, setColor] = useState<string>(data.color);
+  const [startHandler, setStartHandler] = useState<Func>();
+  const [stopHandler, setStopHandler] = useState<Func>();
+  useEffect(() => {
+    if (startHandler && stopHandler) {
+      getStartHandler(startHandler as Func);
+      getStopHandler(stopHandler as Func);
+    }
+  }, [startHandler, stopHandler]);
+
   const updateCar = async () => {
     if (name !== data.name || color !== data.color) {
       const newCar = {
@@ -43,6 +47,15 @@ const CarLine: FC<CarLineProps> = ({ data, remove }) => {
       await FetchService.updateCar(data.id, newCar);
     }
   };
+
+  const getEngineStartHandler = (fn: () => Promise<void>) => {
+    setStartHandler(() => fn);
+  };
+
+  const getEngineStopHandler = (fn: () => Promise<void>) => {
+    setStopHandler(() => fn);
+  };
+
   return (
     <StyledCarLine>
       <CarLineHeader
@@ -54,7 +67,12 @@ const CarLine: FC<CarLineProps> = ({ data, remove }) => {
         changeName={setName}
         changeColor={setColor}
       />
-      <CarLineBody id={data.id} color={color} />
+      <CarLineBody
+        getStartHandler={getEngineStartHandler}
+        getStopHandler={getEngineStopHandler}
+        id={data.id}
+        color={color}
+      />
     </StyledCarLine>
   );
 };

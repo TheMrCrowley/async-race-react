@@ -5,8 +5,8 @@ export interface CarData {
 }
 
 export interface EngineResponse {
-  velocity: string;
-  distance: string;
+  velocity: number;
+  distance: number;
 }
 
 export type DriveResponse = { success: boolean };

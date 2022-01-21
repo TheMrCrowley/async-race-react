@@ -1,63 +1,30 @@
-import React, { FC, LegacyRef, RefObject, useRef, useState } from 'react';
-import styled from 'styled-components';
+import React, { FC, RefObject, useEffect, useRef, useState } from 'react';
+import FetchService from '../../API/FetchService';
+import { CarLineBodyProps } from './types';
 import { CarLineButtonsText } from './enum';
-
 import { ReactComponent as CarSvg } from './car.svg';
 import { ReactComponent as FinishSvg } from './finish.svg';
-import { StyledButton } from '../UI/Button/MyButton';
-import FetchService from '../../API/FetchService';
+import {
+  CarEngineButton,
+  StyledCarLineBody,
+  StyledCarWrapper,
+  StyledFlagWrapper,
+  StyledStartWrapper,
+} from './styleCarLineBody';
 
-interface CarLineBodyProps {
-  color: string;
-  id: number;
-}
-
-const StyledCarLineBody = styled.div`
-  display: flex;
-  justify-content: space-between;
-  min-height: 100px;
-  svg {
-    max-width: 100%;
-    height: auto;
-  }
-`;
-
-const StyledStartWrapper = styled.div`
-  display: flex;
-`;
-
-type CarWrapperProps = {
-  ref?: LegacyRef<HTMLDivElement>;
-  color: string;
-};
-
-const StyledCarWrapper = styled.div<CarWrapperProps>`
-  width: 150px;
-  align-self: flex-end;
-  animation-duration: 1s;
-  animation-name: drive;
-  fill: ${props => props.color || '#fecb00'};
-`;
-
-const StyledFlagWrapper = styled.div`
-  width: 100px;
-  transform: translate(-200px, -1rem);
-`;
-
-const CarEngineButton = styled(StyledButton)`
-  align-self: flex-start;
-  max-height: 50%;
-  margin-right: 1rem;
-`;
-
-const CarLineBody: FC<CarLineBodyProps> = ({ color, id }) => {
-  const [requestId, setRequestId] = useState<number>(0);
+const CarLineBody: FC<CarLineBodyProps> = ({
+  color,
+  id,
+  getStartHandler,
+  getStopHandler,
+}) => {
   const [drive, setDrive] = useState<boolean>(false);
   const carImage = useRef<HTMLDivElement>();
   const flagImage = useRef<HTMLDivElement>();
 
   const stopAnimation = () => {
-    window.cancelAnimationFrame(requestId);
+    const car = carImage.current as HTMLDivElement;
+    window.cancelAnimationFrame(parseInt(car.dataset.requestId as string, 10));
   };
 
   const resetCarPosition = () => {
@@ -71,9 +38,10 @@ const CarLineBody: FC<CarLineBodyProps> = ({ color, id }) => {
     if (curPoint < endPoint) {
       curPoint += step;
       car.style.transform = `translateX(${curPoint}%)`;
-      setRequestId(
-        window.requestAnimationFrame(() => tick(curPoint, endPoint, step))
-      );
+
+      car.dataset.requestId = window
+        .requestAnimationFrame(() => tick(curPoint, endPoint, step))
+        .toString();
     }
   };
 
@@ -88,33 +56,33 @@ const CarLineBody: FC<CarLineBodyProps> = ({ color, id }) => {
   };
 
   const handleStart = async () => {
+    setDrive(true);
     const startResponse = await FetchService.startEngine(id);
-    console.log(startResponse);
+    animation(startResponse.distance / startResponse.velocity, 60);
+    await FetchService.switchToDrive(id)
+      .then(() => console.log('won'))
+      .catch(() => stopAnimation());
   };
+
+  const handleStop = async () => {
+    setDrive(false);
+    stopAnimation();
+    await FetchService.stopEngine(id);
+    resetCarPosition();
+  };
+
+  useEffect(() => {
+    getStartHandler(handleStart);
+    getStopHandler(handleStop);
+  }, []);
 
   return (
     <StyledCarLineBody>
       <StyledStartWrapper>
-        <CarEngineButton
-          gray={drive}
-          onClick={() => {
-            handleStart();
-            setDrive(true);
-            animation(5000, 144);
-          }}
-          disabled={drive}
-        >
+        <CarEngineButton gray={drive} onClick={handleStart} disabled={drive}>
           {CarLineButtonsText.START}
         </CarEngineButton>
-        <CarEngineButton
-          gray={!drive}
-          disabled={!drive}
-          onClick={() => {
-            setDrive(false);
-            stopAnimation();
-            resetCarPosition();
-          }}
-        >
+        <CarEngineButton gray={!drive} disabled={!drive} onClick={handleStop}>
           {CarLineButtonsText.STOP}
         </CarEngineButton>
         <StyledCarWrapper
